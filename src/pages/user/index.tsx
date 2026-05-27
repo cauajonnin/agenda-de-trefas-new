@@ -4,22 +4,15 @@ import {Ionicons,MaterialIcons} from '@expo/vector-icons';
 import { Text, View,Alert,TouchableOpacity,ScrollView } from "react-native";
 import { useNavigation,NavigationProp  } from '@react-navigation/native';
 import {AuthContextList, AuthContextType} from "../../context/authContext_list";
-import { useFirebaseAuth } from "../../context/firebaseAuthContext";
 import { themas } from "../../global/themes";
 
 export default function User() {
     const navigation = useNavigation<NavigationProp<any>>();
     const {filterCompleted, filterPending, filterOverdue, resetFilter, taskList} = React.useContext<AuthContextType>(AuthContextList);
-    const { logout, user } = useFirebaseAuth();
 
-    const handleLogout = async () => {
-        const result = await logout();
-        if(result.success){
-            Alert.alert("Logout", "Você saiu da conta.");
-            return navigation.reset({routes:[{name :'Login'}]});
-        } else {
-            Alert.alert("Erro", result.error || "Erro ao fazer logout");
-        }
+    const handleLogout = () => {
+        Alert.alert("Logout", "Você saiu da conta.");
+        return navigation.reset({routes:[{name :'Login'}]});
     };
 
     const handleFilterAndNavigate = (filterFunction: () => void, title: string) => {
@@ -30,7 +23,7 @@ export default function User() {
     return (
         <View style={style.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Text style={style.name}>{user?.email || 'Usuário'}</Text>
+                <Text style={style.name}>Cauã Gomes.</Text>
                 
                 <View style={style.filterSection}>
                     <Text style={style.sectionTitle}>Filtrar Tarefas</Text>
